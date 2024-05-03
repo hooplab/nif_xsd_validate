@@ -7,11 +7,15 @@ defmodule NifXsd do
   @doc false
   def load_nifs do
     case :erlang.load_nif(
-           String.to_charlist(Path.join(:code.priv_dir(:nif_xsd_validate), "nif_xsd_validate")),
+           :filename.join(:code.priv_dir(:nif_xsd_validate), ~c"nif_xsd_validate"),
            0
          ) do
-      :ok -> IO.puts(:stdio, "Success: nif_xsd_validate load successful")
-      {:error, {_, error_text}} -> IO.puts(:stderr, "Error: nif_xsd_validate load failed: #{error_text}")
+      :ok -> 
+        :ok
+
+      {:error, {_, error_text}} -> 
+        IO.warn("Error: nif_xsd_validate load failed: #{error_text}")
+        :ok
     end
   end
 
