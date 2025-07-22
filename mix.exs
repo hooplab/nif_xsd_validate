@@ -65,7 +65,7 @@ defmodule Mix.Tasks.Compile.NifXsdValidate do
         IO.puts("Applying :prod build hack")
         basename = Path.basename(Mix.Project.app_path())
 
-        ('cp -rf ' ++
+        (~c"cp -rf " ++
            String.to_charlist(
              Path.join(Mix.Project.deps_path(), [basename, "/", "priv"]) <>
                " " <> Mix.Project.app_path()
